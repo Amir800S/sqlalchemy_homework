@@ -3,7 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from pydantic_sqlalchemy import sqlalchemy_to_pydantic
 
-DATABASE_URL = "postgresql://amir:amir@localhost/product_items"
+DATABASE_URL = "postgresql://postgres:postgres@db:5432/product_items"
+
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(
     autocommit=False, autoflush=False, bind=engine
@@ -86,20 +87,7 @@ def delete_item(item_id):
         else:
             return {'message': f"Продукт {item_id} не найден в базе данных."}
 
-#  === Проверяем что все четко и работает ===
+# REST - {данные в формате : JSON }
+# SOAP - <данные в : XML>
+# client ---<>--- api ---<>--- server
 
-create_item(
-    ItemPydantic(
-        string='PlayStation 4',
-        description='Игровая приставка предпоследнего поколения',
-        price=30000
-    )
-)
-
-update_item(
-    1,
-    'PlayStation 5',
-    'Игровая приставка последнего поколения', 45000
-)
-
-print(get_items())
