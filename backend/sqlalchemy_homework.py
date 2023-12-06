@@ -52,13 +52,13 @@ def get_items():
         ]
 
 
-def retrieve_item(item_id):
+def retrieve_item(product_name):
     """ Получаем инфу о конкретном продуктике. """
     with SessionLocal() as db:
-        retrieved_item = db.query(Item).filter_by(id=item_id).first()
-        return {'name': retrieved_item.string,
-                'description': retrieved_item.description,
-                'price': retrieved_item.price} if retrieved_item else None
+        retrieved_item = db.query(Item).filter_by(
+            string=product_name
+        ).first()
+        return retrieved_item
 
 
 def update_item(item_id, item_name, item_desc, item_price):
