@@ -201,7 +201,7 @@ class DeleteBookResource(Resource):
             type: integer
             required: true
         responses:
-          204:
+          200:
             description: Book deleted successfully
           404:
             description: Book not found
