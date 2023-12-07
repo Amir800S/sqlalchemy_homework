@@ -1,6 +1,11 @@
 psycopg2-binary
 sqlalchemy
+spectacular
 pydantic-sqlalchemy
 flask
+flasgger
+flask-restful-swagger
 gunicorn
-pandas
+flask_sqlalchemy
+Flask-Migrate
+flask_restx
