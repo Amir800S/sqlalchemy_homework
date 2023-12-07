@@ -3,7 +3,7 @@ from models import *
 @app.route('/books', methods=('POST',))
 def create_book():
     """
-    Create a new book
+    Создать новую книгу
     ---
     parameters:
       - name: body
@@ -18,21 +18,21 @@ def create_book():
           properties:
             title:
               type: string
-              description: Title of the book
+              description: Название книги
             author:
               type: string
-              description: Author of the book
+              description: Автор книги
             genre:
               type: string
-              description: Genre of the book
+              description: Жанр книги
     responses:
       201:
-        description: Book created successfully
+        description: Книга успешно создана
       400:
-        description: Invalid input
+        description: Неверный ввод
     """
     try:
-        data = BookCreateSchema(**request.json)
+        data = BooksSchema(**request.json)
     except ValidationError as e:
         return jsonify(
             {'error': 'Не валидно(', 'details': e.errors()}
@@ -48,11 +48,11 @@ def create_book():
 @app.route('/books', methods=('GET',))
 def get_all_books():
     """
-    Get all books
+    Получить все книги
     ---
     responses:
       200:
-        description: List of books
+        description: Список книг
         schema:
           type: array
           items:
@@ -67,7 +67,7 @@ def get_all_books():
 @app.route('/books/<int:book_id>', methods=('GET',))
 def get_book(book_id):
     """
-    Get a book by ID
+    Получить книгу по ID
     ---
     parameters:
       - name: book_id
@@ -76,11 +76,11 @@ def get_book(book_id):
         required: true
     responses:
       200:
-        description: Details of the book
+        description: Детали книги
         schema:
           $ref: '#/definitions/Book'
       404:
-        description: Book not found
+        description: Книга не найдена
     """
     book = Books.query.get_or_404(book_id)
     return jsonify(
@@ -90,7 +90,7 @@ def get_book(book_id):
 @app.route('/books/<int:book_id>', methods=('PUT',))
 def update_book(book_id):
     """
-    Update a book
+    Обновить книгу
     ---
     parameters:
       - name: book_id
@@ -109,23 +109,23 @@ def update_book(book_id):
           properties:
             title:
               type: string
-              description: Title of the book
+              description: Название книги
             author:
               type: string
-              description: Author of the book
+              description: Автор книги
             genre:
               type: string
-              description: Genre of the book
+              description: Жанр книги
     responses:
       200:
-        description: Book updated successfully
+        description: Книга успешно обновлена
       400:
-        description: Invalid input
+        description: Неверный ввод
       404:
-        description: Book not found
+        description: Книга не найдена
     """
     try:
-        data = BookUpdateSchema(**request.json)
+        data = BooksSchema(**request.json)
     except ValidationError as e:
         return jsonify(
             {'error': 'Не валидно(', 'details': e.errors()}
@@ -141,7 +141,7 @@ def update_book(book_id):
 @app.route('/books/<int:book_id>', methods=('DELETE',))
 def delete_book(book_id):
     """
-    Delete a book by ID
+    Удалить книгу по ID
     ---
     parameters:
       - name: book_id
@@ -150,9 +150,9 @@ def delete_book(book_id):
         required: true
     responses:
       200:
-        description: Book deleted successfully
+        description: Книга успешно удалена
       404:
-        description: Book not found
+        description: Книга не найдена
     """
     book = Books.query.get_or_404(book_id)
     db.session.delete(book)

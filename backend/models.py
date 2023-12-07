@@ -34,15 +34,3 @@ class BooksSchema(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-class BookCreateSchema(BaseModel):
-    title: str = ""
-    author: str = ""
-    genre: str = ""
-
-
-class BookUpdateSchema(BaseModel):
-    title: str = ""
-    author: str = ""
-    genre: str = ""
